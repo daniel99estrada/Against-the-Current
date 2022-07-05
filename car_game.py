@@ -16,7 +16,7 @@ game = CarGame()
 # Initialize all Pygame modules.
 pygame.init()
 running = True
-pygame.display.set_caption("Car Game")
+pygame.display.set_caption("Against the Current")
 screen = pygame.display.set_mode(SIZE)
 
 # Fill Screen with color
@@ -31,7 +31,7 @@ def draw_road():
         colorGRAY,
         (WIDTH/2 - road_w/2, 0, road_w, HEIGHT))
     
-    # draw outer lanes
+    # draw outer yellow lanes
     pygame.draw.rect(
         screen,
         colorYELLOW,
@@ -42,7 +42,7 @@ def draw_road():
         colorYELLOW,
         (WIDTH/2 + road_w/2 - roadMark_w* 3, 0, roadMark_w, HEIGHT))
     
-    # draw middle lanes
+    # draw middle white lanes
     pygame.draw.rect(
         screen,
         colorWHITE,
@@ -79,7 +79,7 @@ def draw_options_screen():
         colorBLACK,
         (screen_x, screen_y + screen_h - border_w, screen_w, border_w))   
 
-#Pause game
+# pause game
 def optionScreen(mainMessage, counter = 0):
     paused = TRUE
     while paused:
@@ -105,7 +105,7 @@ def optionScreen(mainMessage, counter = 0):
 
         # Motion text
         if counter < 80:
-            message_to_screen(screen,"- - - Press spacebar to continue - - -",size=25, x = WIDTH/2 , y = screen_h * 0.8 + screen_y)              
+            message_to_screen(screen,"- - - Press spacebar to continue - - -", size=25, x = WIDTH/2 , y = screen_h * 0.8 + screen_y)              
         if counter == 160:
             counter = 0
         counter += 1
@@ -132,12 +132,13 @@ carB_loc.center = carB_position
 
 speed = 2
 counter = 0
+level = 1
 
 optionScreen("Welcome")
 pygame.display.update()
 while TRUE:
     
-    # Check for ongoing events in the game
+    # check for ongoing events in the game
     for event in pygame.event.get():
 
         # clicking the X button quits the game
@@ -167,10 +168,11 @@ while TRUE:
                 game.currentMove += 1
                 car_loc.center = game.lanes[game.currentMove], HEIGHT * 0.8      
 
-    counter +=1
+    counter += 1
     if counter == 400:
         speed += 0.5
-        counter = 0
+        level += 1
+        counter = 0        
 
     carA_loc[1] += speed
     carB_loc[1] += speed
@@ -184,7 +186,7 @@ while TRUE:
         B_lane = random.randint(0,2)
         carB_loc.center = game.lanes[B_lane], - HEIGHT * 1.5
     
-    # Change car B's location if it is in the same lane as car A and at a car's distance from it.
+    # change car B's location if it is in the same lane as car A and at a car's distance from it.
     if carA_loc.center[0] == carB_loc.center[0]:
         if abs(carA_loc.center[1] - carB_loc.center[1]) < 250:
             carB_loc.center = (carB_loc.center[0],carB_loc.center[1] - 250)
@@ -199,11 +201,13 @@ while TRUE:
         carA_loc.center = carA_position
         carB_loc.center = carB_position
         speed = 2
+        level = 1
         #continue
 
     # update screen
     screen.fill(colorGREEN)
     draw_road()
+    message_to_screen(screen,"LEVEL: " + str(level),size =20, x = WIDTH * 0.06 , y = HEIGHT  * 0.05)
     screen.blit(car, car_loc)
     screen.blit(carA, carA_loc)
     screen.blit(carB, carB_loc)    
