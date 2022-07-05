@@ -98,8 +98,7 @@ def optionScreen(mainMessage, counter = 0):
         screen.blit(carB, carB_loc)
 
         # draw options screen
-        draw_options_screen()
-        #message_to_screen(screen,"AGAINST THE CURRENT",size =45, x = WIDTH/2 + 2 , y = screen_h * 0.2 + 2 + screen_y, color=colorYELLOW)        
+        draw_options_screen()  
         message_to_screen(screen,"AGAINST THE CURRENT",size =45, x = WIDTH/2 , y = screen_h * 0.2 + screen_y)
         message_to_screen(screen,"by Moon Moon Games™",size =25, x = WIDTH/2 , y = screen_h * 0.35  + screen_y)
         message_to_screen(screen, mainMessage, size=40, x = WIDTH/2 , y = screen_h * 0.55 + screen_y)
@@ -131,7 +130,7 @@ carB = pygame.transform.scale(carB, (250, 250))
 carB_loc = car.get_rect()
 carB_loc.center = carB_position
 
-speed = 20
+speed = 2
 counter = 0
 
 optionScreen("Welcome")
@@ -191,7 +190,7 @@ while TRUE:
             carB_loc.center = (carB_loc.center[0],carB_loc.center[1] - 250)
 
     # check if cars collide
-    if (car_loc[0] == carA_loc[0] and car_loc.center[1] < carA_loc.center[1] + 240 and carA_loc.center[1] > car_loc.center[1]) or (car_loc[0] == carB_loc[0] and carB_loc.center[1] < car_loc[1] + 250 and carB_loc[1] > car_loc[1] - 250):
+    if (car_loc[0] == carA_loc[0] and carA_loc.center[1] > car_loc.center[1] - 250 ) or (car_loc[0] == carB_loc[0] and carB_loc.center[1] > car_loc.center[1] - 250 ):
         print("Player Car location: " + str(car_loc.center[1]))
         print("White Car location: " + str(carA_loc.center[1]))
         print("Blue Car location: " + str(carB_loc.center[1]))
