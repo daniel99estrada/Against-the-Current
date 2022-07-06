@@ -3,7 +3,7 @@ from pygame.locals import *
 
 
 # main screen dimensions
-SIZE = WIDTH,HEIGHT= (700, 600)
+SIZE = WIDTH,HEIGHT= (700, 1000)
 
 # road dimensions
 road_w = int(WIDTH / 1.3)

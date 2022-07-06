@@ -125,7 +125,7 @@ carA_loc = car.get_rect()
 carA_loc.center = carA_position
 
 # load enemy car B image
-carB = pygame.image.load("assets/blue_car.png")
+carB = pygame.image.load("assets/white_car.png")
 carB = pygame.transform.scale(carB, (250, 250))
 carB_loc = car.get_rect()
 carB_loc.center = carB_position
@@ -133,11 +133,12 @@ carB_loc.center = carB_position
 speed = 2
 counter = 0
 level = 1
+collision = False
 
 optionScreen("Welcome")
 pygame.display.update()
 while TRUE:
-    
+
     # check for ongoing events in the game
     for event in pygame.event.get():
 
@@ -155,8 +156,11 @@ while TRUE:
         # spacebar pauses the game
         if event.type == KEYDOWN:
             if event.key == K_SPACE:
+                print("Player Car location: " + str(car_loc.center[1]))
+                print("White Car location: " + str(carA_loc.center[1]))
+                print("Blue Car location: " + str(carB_loc.center[1]))               
                 optionScreen("Paused")
-
+                
         # switch lanes
         if event.type == KEYDOWN:
             if event.key in [K_a,K_LEFT] and game.currentMove != 0:
@@ -168,11 +172,40 @@ while TRUE:
                 game.currentMove += 1
                 car_loc.center = game.lanes[game.currentMove], HEIGHT * 0.8      
 
-    counter += 1
+    # check if cars collide
+    if (car_loc[0] == carA_loc[0]):
+        if carA_loc.center[1] < car_loc.center[1] + 250 and carA_loc.center[1] > car_loc.center[1] - 250:
+            collision = True
+
+    if (car_loc[0] == carB_loc[0]):
+        if carB_loc.center[1] < car_loc.center[1] + 250 and carB_loc.center[1] > car_loc.center[1] - 250:
+            collision = True
+
+    if collision:
+        optionScreen("GAME OVER")
+        optionScreen("Welcome")
+        car_loc.center = car_position
+        carA_loc.center = carA_position
+        carB_loc.center = carB_position
+        game.currentMove = 1  
+        speed = 2
+        level = 1
+        collision = False
+
+    # update screen
+    screen.fill(colorGREEN)
+    draw_road()
+    message_to_screen(screen,"LEVEL: " + str(level),size =25, x = WIDTH * 0.06 , y = HEIGHT  * 0.05)
+    screen.blit(car, car_loc)
+    screen.blit(carA, carA_loc)
+    screen.blit(carB, carB_loc) 
+    
     if counter == 400:
         speed += 0.5
         level += 1
-        counter = 0        
+        counter = 0  
+    
+    counter += 1         
 
     carA_loc[1] += speed
     carB_loc[1] += speed
@@ -191,26 +224,6 @@ while TRUE:
         if abs(carA_loc.center[1] - carB_loc.center[1]) < 250:
             carB_loc.center = (carB_loc.center[0],carB_loc.center[1] - 250)
 
-    # check if cars collide
-    if (car_loc[0] == carA_loc[0] and carA_loc.center[1] > car_loc.center[1] - 250 ) or (car_loc[0] == carB_loc[0] and carB_loc.center[1] > car_loc.center[1] - 250 ):
-        print("Player Car location: " + str(car_loc.center[1]))
-        print("White Car location: " + str(carA_loc.center[1]))
-        print("Blue Car location: " + str(carB_loc.center[1]))
-        optionScreen("Welcome")
-        car_loc.center = car_position
-        carA_loc.center = carA_position
-        carB_loc.center = carB_position
-        speed = 2
-        level = 1
-        #continue
-
-    # update screen
-    screen.fill(colorGREEN)
-    draw_road()
-    message_to_screen(screen,"LEVEL: " + str(level),size =20, x = WIDTH * 0.06 , y = HEIGHT  * 0.05)
-    screen.blit(car, car_loc)
-    screen.blit(carA, carA_loc)
-    screen.blit(carB, carB_loc)    
     pygame.display.update()
 
 
