@@ -3,7 +3,7 @@ from pygame.locals import *
 
 
 # main screen dimensions
-SIZE = WIDTH,HEIGHT= (700, 1000)
+SIZE = WIDTH, HEIGHT= (700, 1000)
 
 # road dimensions
 road_w = int(WIDTH / 1.3)
@@ -14,7 +14,7 @@ right_lane = int(WIDTH/2 + road_w/3 - roadMark_w)
 middle_lane = int(WIDTH/2)
 left_lane = int(WIDTH/2 - road_w/3 + roadMark_w)
 
-# Option screen dimensions
+# option screen dimensions
 screen_w = WIDTH * 0.8
 screen_h = HEIGHT * 0.25
 screen_y = HEIGHT * 0.2
