@@ -195,7 +195,7 @@ while TRUE:
     # update screen
     screen.fill(colorGREEN)
     draw_road()
-    message_to_screen(screen,"LEVEL: " + str(level),size =25, x = WIDTH * 0.06 , y = HEIGHT  * 0.05)
+    message_to_screen(screen,"LEVEL: " + str(level),size =22, x = WIDTH * 0.06 , y = HEIGHT  * 0.05)
     screen.blit(car, car_loc)
     screen.blit(carA, carA_loc)
     screen.blit(carB, carB_loc) 
@@ -217,11 +217,11 @@ while TRUE:
         
     if carB_loc[1] > HEIGHT:
         B_lane = random.randint(0,2)
-        carB_loc.center = game.lanes[B_lane], - HEIGHT * 1.5
+        carB_loc.center = game.lanes[B_lane], - HEIGHT * 1.7
     
     # change car B's location if it is in the same lane as car A and at a car's distance from it.
     if carA_loc.center[0] == carB_loc.center[0]:
-        if abs(carA_loc.center[1] - carB_loc.center[1]) < 250:
+        if abs(carA_loc.center[1] - carB_loc.center[1]) < 300:
             carB_loc.center = (carB_loc.center[0],carB_loc.center[1] - 250)
 
     pygame.display.update()
