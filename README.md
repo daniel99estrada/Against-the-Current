@@ -1,5 +1,5 @@
 # Against the Current
-A Pygame-based game where the player must navigate a character through a river while avoiding obstacles and collecting power-ups. The player can control the character by using the arrow keys to move the character. The game ends when the character touches an obstacle.
+A Pygame-based game where the player controls a car travelling in the opposite direction of traffic. The player must use the arrow keys to switch lanes and evade other cars to survive as long as possible.
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
